@@ -39,13 +39,11 @@ const Principles: React.FC = () => {
                   <div className="flex justify-between items-center mb-3">
                     <h3 className="text-xl font-bold text-white group-hover:text-amber-400 transition-colors">{reform.title}</h3>
                     
-                    {/* --- FIX BURADA: text-zinc-500 -> text-zinc-300 ve border eklendi --- */}
                     <span className="text-xs text-zinc-300 font-mono bg-zinc-800 border border-white/10 px-2 py-1 rounded shadow-sm">
                       {reform.date}
                     </span>
 
                   </div>
-                  {/* --- FIX BURADA: text-zinc-400 daha güvenli --- */}
                   <p className="text-zinc-400 text-sm leading-relaxed">{reform.desc}</p>
                 </motion.div>
                )
@@ -54,22 +52,27 @@ const Principles: React.FC = () => {
         </div>
 
         {/* 6 ARROWS (ALTIOK) */}
-        <div className="relative py-12 border-t border-white/5">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-display text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-700 font-black tracking-tight">ALTI OK</h2>
-            <p className="text-zinc-400 mt-4 max-w-xl mx-auto text-sm">Cumhuriyetin temel niteliklerini oluşturan ana ilkeler.</p>
+      <div className="relative py-12 md:py-24 border-t border-white/5">
+          <div className="text-center mb-10 md:mb-16 px-4">
+            <h2 className="text-4xl md:text-6xl font-display text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-700 font-black tracking-tight drop-shadow-sm">
+              ALTI OK
+            </h2>
+            <p className="text-zinc-400 mt-4 max-w-xl mx-auto text-sm md:text-base leading-relaxed">
+              Cumhuriyetin temel niteliklerini oluşturan ana ilkeler.
+            </p>
           </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 max-w-6xl mx-auto px-4">
             {PRINCIPLES.map((p, i) => (
-              <div key={i} className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-zinc-900 to-zinc-950 border border-white/5 hover:border-red-600/50 transition-all duration-500 p-6 md:p-8 hover:shadow-[0_0_30px_-10px_rgba(220,38,38,0.3)]">
+              <div key={i} className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-zinc-900 to-zinc-950 border border-white/5 hover:border-red-600/50 transition-all duration-500 p-6 hover:shadow-[0_0_30px_-10px_rgba(220,38,38,0.3)] flex flex-col justify-start h-full">
+                
                 <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-100 transition-opacity duration-500">
                   <ArrowRight className="text-red-500 -rotate-45 group-hover:rotate-0 transition-transform duration-500" />
                 </div>
                 
-                <h3 className="text-xl md:text-2xl font-black text-zinc-200 group-hover:text-red-500 mb-3 uppercase tracking-wide transition-colors">
+                <h3 className="text-lg md:text-2xl font-black text-zinc-200 group-hover:text-red-500 mb-3 uppercase tracking-wider transition-colors">
                   {p.title}
                 </h3>
+                
                 <p className="text-sm text-zinc-500 group-hover:text-zinc-300 transition-colors leading-relaxed">
                   {p.desc}
                 </p>
