@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { MAP_POINTS } from '../constants';
 import { MapPoint } from '../types';
-import { X, MapPin, Sword, Users, Target, Calendar, RotateCcw, Quote, BookOpen } from 'lucide-react'; // BookOpen import eklendi
+import { X, MapPin, Sword, Users, Target, Calendar, RotateCcw, Quote, BookOpen } from 'lucide-react';
 import TurkeyMapSVG from './TurkeyMapSVG';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -83,16 +83,16 @@ const WarMap: React.FC = () => {
   const getTheme = (type: string) => EVENT_THEMES[type] || EVENT_THEMES.default;
 
   return (
-    <section id="map" className="py-24 bg-[#050505] relative overflow-hidden">
+    <section id="map" className="min-h-screen bg-[#050505] relative overflow-hidden flex flex-col p-4 md:p-6 lg:p-8">
       
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-zinc-800/20 via-[#050505] to-[#050505]"></div>
         <div className="h-full w-full opacity-[0.07]" style={{ backgroundImage: 'linear-gradient(#666 1px, transparent 1px), linear-gradient(90deg, #666 1px, transparent 1px)', backgroundSize: '50px 50px' }}></div>
       </div>
       
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="w-full max-w-7xl mx-auto relative z-10 flex-1 flex flex-col">
         
-        <div className="text-center mb-8 space-y-2">
+        <div className="text-center mb-6 md:mb-8 space-y-2 shrink-0">
            <h2 className="text-4xl md:text-6xl font-display font-bold text-white tracking-tight drop-shadow-lg">
             MİLLİ MÜCADELE
           </h2>
@@ -101,7 +101,7 @@ const WarMap: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex flex-wrap justify-center items-center gap-3 mb-10">
+        <div className="flex flex-wrap justify-center items-center gap-3 mb-6 md:mb-8 shrink-0">
           {[
             { label: 'Muharebeler', color: 'bg-rose-500', type: 'battle' },
             { label: 'Kongreler', color: 'bg-sky-500', type: 'congress' },
@@ -126,8 +126,8 @@ const WarMap: React.FC = () => {
           </AnimatePresence>
         </div>
 
-        <div className="relative w-full aspect-[1.8/1] md:aspect-[2/1] bg-[#151518]/50 backdrop-blur-sm rounded-3xl shadow-[0_0_40px_rgba(128,128,255,0.05)] overflow-hidden isolate">
-          <TurkeyMapSVG className="w-full h-full transition-all duration-700 ease-in-out">
+        <div className="relative w-full flex-1 min-h-0 bg-[#151518]/50 backdrop-blur-sm rounded-3xl shadow-[0_0_40px_rgba(128,128,255,0.05)] overflow-hidden isolate">
+          <TurkeyMapSVG className="w-full h-full object-contain transition-all duration-700 ease-in-out">
             <AnimatePresence>
               {visiblePoints.map((point) => {
                 const theme = getTheme(point.type);
@@ -149,20 +149,17 @@ const WarMap: React.FC = () => {
 
           <AnimatePresence>
             {selectedPoint && (
-              // ==================== OPERASYON BÖLGESİ BAŞLANGIÇ ====================
               <motion.div
                 initial={{ opacity: 0, y: 50, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 50, scale: 0.95 }}
                 transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
-                // MOBİL-ÖNCELİKLİ MİMARİ UYGULANDI
                 className="absolute z-50 
-                           top-4 left-4 right-4 w-auto max-h-[calc(100%-3rem)] 
+                           top-4 left-4 right-4 w-auto max-h-[calc(100%-2rem)] 
                            md:top-6 md:left-auto md:right-6 md:w-[360px] md:max-h-[calc(100%-3rem)]
                            bg-[#121212]/80 backdrop-blur-xl border border-white/10 shadow-2xl rounded-2xl flex flex-col overflow-hidden"
                 onClick={(e) => e.stopPropagation()}
               >
-              {/* ==================== OPERASYON BÖLGESİ BİTİŞ ====================== */}
                 {(() => {
                   const theme = getTheme(selectedPoint.type);
                   return (
@@ -259,3 +256,4 @@ const WarMap: React.FC = () => {
 };
 
 export default WarMap;
+
