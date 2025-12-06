@@ -1,11 +1,10 @@
 import React, { useState, useMemo } from 'react';
 import { MAP_POINTS } from '../constants';
 import { MapPoint } from '../types';
-import { X, MapPin, Sword, Target, Users, BookOpen, Quote, Calendar, RotateCcw } from 'lucide-react';
+import { X, MapPin, Sword, Users, Target, Calendar, RotateCcw, Quote, BookOpen } from 'lucide-react'; // BookOpen import eklendi
 import TurkeyMapSVG from './TurkeyMapSVG';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// Modern Renk Paleti ve Gradient Ayarları
 const EVENT_THEMES: Record<string, { 
   primary: string; 
   secondary: string; 
@@ -84,20 +83,13 @@ const WarMap: React.FC = () => {
   const getTheme = (type: string) => EVENT_THEMES[type] || EVENT_THEMES.default;
 
   return (
-    <section id="map" className="py-24 bg-[#050505] relative overflow-hidden min-h-screen flex flex-col justify-center">
-
+    <section id="map" className="py-24 bg-[#050505] relative overflow-hidden">
       
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-zinc-800/20 via-[#050505] to-[#050505]"></div>
         <div className="h-full w-full opacity-[0.07]" style={{ backgroundImage: 'linear-gradient(#666 1px, transparent 1px), linear-gradient(90deg, #666 1px, transparent 1px)', backgroundSize: '50px 50px' }}></div>
       </div>
       
-      {/* ARKA PLAN TÜRK BAYRAĞI (GÖRÜNÜRLÜK ARTIRILDI) */}
-      <div
-        className="absolute inset-0 z-0 bg-contain bg-center bg-no-repeat opacity-[0.05] pointer-events-none"
-        style={{ backgroundImage: "url('https://www.trendbayrak.com/wp-content/uploads/2025/01/Siyah-Turk-Bayragi-Anlami-Nedir-Siyah-Sancak2.webp')" }} // public klasörüne bayrak svg'sini eklediğinizden emin olun!
-      ></div>
-
       <div className="container mx-auto px-4 relative z-10">
         
         <div className="text-center mb-8 space-y-2">
@@ -143,12 +135,9 @@ const WarMap: React.FC = () => {
                 const fillColor = theme.dotColor;
                 return (
                   <motion.g key={point.id} variants={pointVariants} initial="initial" animate="animate" exit="exit" className="cursor-pointer group/pin" onClick={(e) => { e.stopPropagation(); setSelectedPoint(point); }} style={{ pointerEvents: 'bounding-box' }} >
-                    {/* DEĞİŞİKLİK: Nokta ve pulse halkası küçültüldü */}
                     <circle cx={point.x} cy={point.y} r={isSelected ? 18 : 8} className={`fill-transparent stroke-2 opacity-60 transition-all duration-1000 ease-out origin-center ${isSelected ? 'stroke-white animate-pulse' : ''}`} stroke={fillColor} strokeOpacity={0.5} />
                     <circle cx={point.x} cy={point.y} r={isSelected ? 5 : 3.5} fill={fillColor} className="transition-all duration-300 group-hover/pin:r-5 shadow-lg" style={{ filter: `drop-shadow(0 0 6px ${fillColor})` }} />
                     <circle cx={point.x} cy={point.y} r="25" className="fill-transparent" />
-                    
-                    {/* DEĞİŞİKLİK: Yazı boyutu ve konumu ayarlandı */}
                     <text x={point.x} y={point.y + 16} textAnchor="middle" className={`font-sans font-bold text-[8px] md:text-[9px] tracking-wider uppercase transition-all duration-300 ${isSelected ? 'fill-white text-[10px]' : 'fill-gray-400 group-hover/pin:fill-white'}`} style={{ textShadow: '0 1px 3px rgba(0,0,0,1)', paintOrder: 'stroke', stroke: '#050505', strokeWidth: '3px' }}>
                       {point.city}
                     </text>
@@ -160,14 +149,20 @@ const WarMap: React.FC = () => {
 
           <AnimatePresence>
             {selectedPoint && (
+              // ==================== OPERASYON BÖLGESİ BAŞLANGIÇ ====================
               <motion.div
-                initial={{ opacity: 0, x: 50, scale: 0.95 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                exit={{ opacity: 0, x: 50, scale: 0.95 }}
+                initial={{ opacity: 0, y: 50, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 50, scale: 0.95 }}
                 transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
-                className="absolute z-50 top-4 right-4 w-full max-w-[380px] md:top-6 md:right-6 md:w-[360px] md:max-h-[calc(100%-3rem)] bg-[#121212]/80 backdrop-blur-xl border border-white/10 shadow-2xl rounded-2xl flex flex-col overflow-hidden"
+                // MOBİL-ÖNCELİKLİ MİMARİ UYGULANDI
+                className="absolute z-50 
+                           top-4 left-4 right-4 w-auto max-h-[calc(100%-3rem)] 
+                           md:top-6 md:left-auto md:right-6 md:w-[360px] md:max-h-[calc(100%-3rem)]
+                           bg-[#121212]/80 backdrop-blur-xl border border-white/10 shadow-2xl rounded-2xl flex flex-col overflow-hidden"
                 onClick={(e) => e.stopPropagation()}
               >
+              {/* ==================== OPERASYON BÖLGESİ BİTİŞ ====================== */}
                 {(() => {
                   const theme = getTheme(selectedPoint.type);
                   return (
@@ -250,13 +245,13 @@ const WarMap: React.FC = () => {
         .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 10px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.25); }
         #map svg path {
-           stroke: #4b5563 !important; /* gray-600 */
-           fill: #1f2937 !important;   /* gray-800 */
+           stroke: #4b5563 !important;
+           fill: #1f2937 !important;
            transition: fill 0.5s ease;
            stroke-width: 0.5px;
         }
         #map svg path:hover {
-           fill: #374151 !important;   /* gray-700 */
+           fill: #374151 !important;
         }
       `}</style>
     </section>
