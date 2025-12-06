@@ -85,6 +85,7 @@ const WarMap: React.FC = () => {
 
   return (
     <section id="map" className="py-24 bg-[#050505] relative overflow-hidden min-h-screen flex flex-col justify-center">
+
       
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-zinc-800/20 via-[#050505] to-[#050505]"></div>
