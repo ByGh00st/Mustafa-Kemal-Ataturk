@@ -1,4 +1,6 @@
 {
+  "developer" : "ByGhost",
+  "Web" : "byghost.tr",
   "name": "Atatürk: Bir Milletin Uyanışı",
   "description": "Mustafa Kemal Atatürk'ün hayatı, devrimleri ve Kurtuluş Savaşı mücadelesini anlatan modern, interaktif web deneyimi.",
   "requestFramePermissions": []
